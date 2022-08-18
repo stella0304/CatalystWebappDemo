@@ -1,0 +1,41 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+jspm_packages/
+/.pnp
+.pnp.js
+package-lock.json
+
+# testing
+/coverage
+
+# production
+build/
+
+# Distribution directories
+dist/
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log
+
+# editors
+.DS_Store
+.idea/
+.vscode/
+.npm/
+
+# misc
+.env
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+typings/
+my-app*
