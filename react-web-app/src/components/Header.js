@@ -7,7 +7,7 @@ const Header = ({ onAdd, showAdd }) => {
         <header className='header'>
             <h1>recipes for responsible adults</h1>
             <div className='searchBar'>
-                <Button color={showAdd ? 'red' : 'green'} text={showAdd ? 'Close' : 'Add'} onClick={onAdd} />
+                <Button color='black' text={showAdd ? 'Close' : 'Add'} onClick={onAdd} />
             </div>
         </header>
     )

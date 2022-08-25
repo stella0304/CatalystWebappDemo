@@ -51,7 +51,7 @@ function App() {
   return (
     <div style={{backgroundColor: 'steelblue', height: '1000px'}}>
       <div className='container'>
-        <Header onAdd={() => setShowAdd(!showAdd)}/>
+        <Header onAdd={() => setShowAdd(!showAdd)} showAdd={showAdd}/>
         {showAdd && <AddRecipe />}
         <div>
           {(recipes.length <= 0) ? (
