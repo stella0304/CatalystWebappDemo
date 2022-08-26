@@ -29,7 +29,7 @@ function App() {
       id: 4,
       name: 'Fried rice',
       ingredients: 'rice, soysauce',
-      method: 'Add soysauce to rice to taste.',
+      method: 'Drizzle soysauce on rice to taste.',
     },
   ]);
 
@@ -49,7 +49,7 @@ function App() {
   */
 
   return (
-    <div style={{backgroundColor: 'skyblue', height: '1000px'}}>
+    <div style={{backgroundColor: 'skyblue', height: '1000px', paddingTop: '20px',}}>
       <div className='container'>
         <Header onAdd={() => setShowAdd(!showAdd)} showAdd={showAdd}/>
         {showAdd && <AddRecipe />}
