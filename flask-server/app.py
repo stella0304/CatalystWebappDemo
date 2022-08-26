@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import db
+from bson import ObjectId
 
 
 app = Flask(__name__)
@@ -36,17 +37,17 @@ def getAll():
         
 
 # API to remove a recipe from the database using the recipe's name
-# e.g. body might be {"name": "Eggs"}
+# e.g. body might be {"_id": "63089f6c32adbaebfa6e8d06"}
 @app.route('/removeOne', methods=["DELETE"])
 def removeOne():
      input_json = request.get_json(force=True)      
-     dictToReturn = {'name': input_json['name']}
-     jsonify_version = jsonify(dictToReturn)     
+
+     # Convert string back to MongoDB ObjectId type
+     dictToReturn = {"_id": ObjectId(input_json["_id"])}
      
      # remove from database
      db.db.collection.delete_one(dictToReturn)
-     return jsonify_version
-        
+     return        
 
 # Put this below all APIs
 if __name__ == '__main__':
