@@ -38,4 +38,4 @@ const AddRecipe = () => {
     )
 }
 
-export default AddRecipe
+export default AddRecipe;

@@ -9,7 +9,7 @@ const Button = ({ color, text, onClick }) => {
     >
       {text}
     </button>
-  )
+  );
 }
 
 Button.defaultProps = {
@@ -22,4 +22,4 @@ Button.propTypes = {
   onClick: PropTypes.func,
 }
 
-export default Button
+export default Button;
