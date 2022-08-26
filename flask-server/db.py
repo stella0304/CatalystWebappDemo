@@ -4,7 +4,6 @@ from app import app
 
 CONNECTION_STRING = "mongodb+srv://admin:Password1@cluster0.vwao5r0.mongodb.net/?retryWrites=true&w=majority"
 
-
 client = pymongo.MongoClient(CONNECTION_STRING)
 
 # This will either find this database if it already exists, or create one

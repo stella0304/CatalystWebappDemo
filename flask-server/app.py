@@ -5,7 +5,7 @@ from bson import ObjectId
 
 app = Flask(__name__)
 
-
+# Sample API, this does not use the database at all
 @app.route('/')
 def flask_mongodb_atlas():
     return "flask mongodb atlas!"
@@ -25,9 +25,9 @@ def addOne():
 # API to retrieve all recipes in DB
 @app.route("/getAll")
 def getAll():
-
     all_docs = db.db.collection.find()
     data = []
+
     for doc in all_docs:
         # Making it into a string avoids this TypeError: Object of type ObjectId is not JSON serializable
         doc['_id'] = str(doc['_id']) 
@@ -38,7 +38,6 @@ def getAll():
 
 # API to remove a recipe from the database using the recipe's name
 # e.g. body might be {"_id": "63089f6c32adbaebfa6e8d06"}
-# {"_id": "6308a368084ebaa3f9304976"}
 @app.route('/removeOne', methods=["DELETE"])
 def removeOne():
      input_json = request.get_json(force=True)      
@@ -46,7 +45,7 @@ def removeOne():
      # Convert string back to MongoDB ObjectId type
      dictToReturn = {"_id": ObjectId(input_json["_id"])}
      
-     # remove from database
+     # Remove from database
      db.db.collection.delete_one(dictToReturn)
      return {"_id": input_json["_id"]}
 
