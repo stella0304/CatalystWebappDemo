@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddRecipe = () => {
+const AddRecipe = ({ onAdd }) => {
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [method, SetMethod] = useState('');
@@ -12,6 +12,8 @@ const AddRecipe = () => {
             alert('Cannot leave fields empty');
             return;
         }
+
+        onAdd({name, ingredients, method});
 
         setName('');
         setIngredients('');

@@ -6,57 +6,64 @@ import RecipeList from "./components/RecipeList";
 function App() {
 
   const [showAdd, setShowAdd] = useState(false);
-  const [recipes, setRecipes] = useState([
-    {
-      id: 1,
-      name: 'Fried Chicken',
-      ingredients: 'leftover kfc',
-      method: 'Chuck leftover kfc in the microwave for 2 minutes, or for a fancier twist, airfrier for 5 minutes.',
-    },
-    {
-      id: 2,
-      name: 'Noodles',
-      ingredients: 'instant noodles',
-      method: 'Cook noodles in pan, add packet flavouring to taste.',
-    },
-    {
-      id: 3,
-      name: 'Sandwich',
-      ingredients: 'bread',
-      method: 'Just eat the bread and pretend like there is ham and cheese.',
-    },
-    {
-      id: 4,
-      name: 'Fried rice',
-      ingredients: 'rice, soysauce',
-      method: 'Drizzle soysauce on rice to taste.',
-    },
-  ]);
+  const [recipes, setRecipes] = useState([]);
 
-  /*
-  const [data, setData] = useState([{}]);
-
+  // runs upon rendering page
   useEffect(() => {
-    fetch("/recipes").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data);
-        console.log(data);
-      }
-    )
+    const getRecipes = async () => {
+      const recipesFromApi = await fetchRecipes();
+      setRecipes(recipesFromApi);
+    }
+
+    getRecipes();
   }, []);
-  */
+
+  // fetch recipes from backend
+  const fetchRecipes = async () => {
+    const res = await fetch("/getAll");
+    const data = await res.json();
+
+    return data;
+  }
+
+  // adds recipe to server
+  const addRecipe = async (recipe) => {
+    await fetch("/addOne", {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(recipe),
+    });
+
+    const recipesFromApi = await fetchRecipes();
+    setRecipes(recipesFromApi);
+  }
+  
+  // delete recipe from server
+  const deleteRecipe = async (id) => {
+    const toDelete = {_id: id};
+
+    console.log(JSON.stringify(toDelete));
+
+    await fetch('/removeOne', { 
+      method: 'DELETE', 
+      body: JSON.stringify(toDelete),
+    });
+
+    const recipesFromApi = await fetchRecipes();
+    setRecipes(recipesFromApi);
+  }
 
   return (
-    <div style={{backgroundColor: '#c5cae9', height: '1000px', paddingTop: '20px',}}>
+    <div style={{backgroundColor: '#c5cae9', minHeight: '1000px', paddingTop: '20px',}}>
       <div className='container'>
         <Header onAdd={() => setShowAdd(!showAdd)} showAdd={showAdd}/>
-        {showAdd && <AddRecipe />}
+        {showAdd && <AddRecipe onAdd={addRecipe}/>}
         <div>
           {(recipes.length <= 0) ? (
             <p>Loading...</p>
-          ) : ( <RecipeList recipes={recipes}/> )}
+          ) : ( <RecipeList recipes={recipes} onDelete={deleteRecipe} /> )}
         </div>
       </div>
     </div>);
