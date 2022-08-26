@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState }from 'react';
+import { FaTimes } from 'react-icons/fa';
 
-const RecipeBox = ({ recipe }) => {
+const RecipeBox = ({ recipe, onDelete }) => {
+    const [hover, setHover] = useState(false);
+
     return (
-        <div className='recipe'>
-            <h3>{recipe.name}</h3>
+        <div className='recipe' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+            <h3>
+              {recipe.name}
+              {hover && <FaTimes
+                style={{ cursor: 'pointer' }}
+                onClick={() => onDelete(recipe.id)}
+
+              />}
+            </h3>
             <p><b>Ingredients:</b> {recipe.ingredients}</p>
             <p><b>Method:</b> {recipe.method}</p>
         </div>
