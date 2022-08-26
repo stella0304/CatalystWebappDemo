@@ -38,6 +38,7 @@ def getAll():
 
 # API to remove a recipe from the database using the recipe's name
 # e.g. body might be {"_id": "63089f6c32adbaebfa6e8d06"}
+# {"_id": "6308a368084ebaa3f9304976"}
 @app.route('/removeOne', methods=["DELETE"])
 def removeOne():
      input_json = request.get_json(force=True)      
@@ -47,7 +48,7 @@ def removeOne():
      
      # remove from database
      db.db.collection.delete_one(dictToReturn)
-     return        
+     return {"_id": input_json["_id"]}
 
 # Put this below all APIs
 if __name__ == '__main__':
